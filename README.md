@@ -20,23 +20,22 @@ The project will start running on [http://localhost:5000](http://localhost:5000)
 
 To use this plugin, you have three options:
 
-1. Use a reverse proxy (such as ngrok):
-   - [Install ngrok](https://ngrok.com/docs/getting-started/)
-   - Start your local dev server: `yarn dev` 
-   - In a new terminal, start ngrok: `ngrok http 5000`
-   - Copy the ngrok HTTPS URL (e.g. https://abc123.ngrok.io)
-   - Register this URL as your plugin on Common Ground
-   - Test the plugin functionality within Common Ground's interface
+1. Run it locally and host it on your own community:
+   - Start your local dev server: `yarn dev`
+   - Go to community settings > Plugins > New Plugin
+   - Create a new plugin using `http://localhost:5000`
+   - That's it! You can now test your plugin on Common Ground!
 
-   Note: Only use ngrok for development/testing. Running a production plugin through ngrok could be a security risk.
+   ![localhost config](images/localhost.png)
 
+   Be aware that this is not the same as deploying the plugin, this will only work on your machine and while you're running the dev server. In order to have other people use it, you will need to host yout plugin somewhere (option below).
 
 2. Deploy and test it live:
    - Host this project on a server with a public URL (e.g. using Vercel, Netlify, etc.)
    - Register it as a plugin on Common Ground using your public URL
    - Test the plugin functionality within Common Ground's interface
 
-3. Use it as a reference implementation:
+2. Use it as a reference implementation:
    - Use it as a starting point for building your own custom plugin
    - Adapt the functionality to match your specific use case
 
