@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./db/dev.db"
+}
+
+model Airdrop {
+  id               Int            @id @default(autoincrement())
+  name             String
+  creatorId        String
+  communityId      String
+  airdropAddress   String
+  tokenAddress     String
+  chainId          Int
+  createdAt        DateTime       @default(now())
+  items            AirdropItem[]
+  merkleTree       MerkleTree? 
+
+  @@index(fields: [communityId])
+}
+
+model AirdropItem {
+  address          String
+  amount           String
+  airdrop          Airdrop        @relation(fields: [airdropId], references: [id], onDelete: Cascade)
+  airdropId        Int
+
+  @@id([address, airdropId])
+  @@index(fields: [airdropId])
+  @@index(fields: [address])
+}
+
+model MerkleTree {
+  airdrop          Airdrop        @relation(fields: [airdropId], references: [id], onDelete: Cascade)
+  airdropId        Int            @id
+  data             Json
+
+  @@index(fields: [airdropId])
+}
+
+model Vesting {
+  id                  Int            @id @default(autoincrement())
+  name                String
+  beneficiaryAddress  String
+  creatorId           String
+  communityId         String
+  tokenAddress        String
+  contractAddress     String
+  chainId             Int
+  createdAt           DateTime       @default(now())
+  startTimeSeconds    Int
+  endTimeSeconds      Int
+
+  @@index(fields: [beneficiaryAddress])
+  @@index(fields: [communityId])
+  @@index(fields: [startTimeSeconds])
+  @@index(fields: [endTimeSeconds])
+}
